@@ -1,12 +1,14 @@
 'use client';
 
 import MessageWriter from "@/components/MessageWriter";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Home = () => {
 
   const messageArr = ['Hello', 'World', 'from', 'React', 'App!'];
   const [message, setMessage] = useState(messageArr)
+  const messageWriterRef = useRef('');
+
   useEffect(() => {
 
   }, [])
@@ -18,7 +20,7 @@ const Home = () => {
             <p key={index} className="text-2xl font-bold text-center">{message}</p>
           </article>
         ))}
-        <MessageWriter />
+        <MessageWriter ref={messageWriterRef} />
       </div>
     </main>
   );
