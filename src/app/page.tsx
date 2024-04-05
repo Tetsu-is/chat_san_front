@@ -1,5 +1,6 @@
 'use client';
 
+import MessageWriter from "@/components/MessageWriter";
 import { useEffect, useState } from "react";
 
 const Home = () => {
@@ -17,6 +18,7 @@ const Home = () => {
             <p key={index} className="text-2xl font-bold text-center">{message}</p>
           </article>
         ))}
+        <MessageWriter />
       </div>
     </main>
   );
