@@ -1,14 +1,28 @@
 import axios from "axios";
 import React, { FC, useRef } from "react";
 
-const MessageWriter:FC = (
-) => {
 
+type MessageWriterProps = {
+  updateFunc: (newMessage: any) => void;
+}
+
+const MessageWriter:FC<MessageWriterProps> = (
+  {updateFunc}
+) => {
   const messageWriterRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit =  async () => {
-    const res = await axios.post("http://localhost:8080/message", { message: messageWriterRef.current })
-    console.log(res.data);
+    if (messageWriterRef.current === null || messageWriterRef.current.value === "") {
+      alert("Please type a message");
+    }
+    console.log("postMessage");
+    const data = {
+        body: messageWriterRef.current!.value
+    }
+    const res = await axios.post("http://localhost:8080/messages", data)
+    console.log(res);
+    messageWriterRef.current!.value = "";
+    updateFunc(data);
   }
 
   return (
