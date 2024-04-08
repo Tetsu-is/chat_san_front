@@ -1,16 +1,13 @@
 import axios from "axios";
-import React, { FC, MutableRefObject } from "react";
+import React, { FC, useRef } from "react";
 
-type MessageWriterProps = {
-  ref: any;
-};
-
-const MessageWriter:FC<MessageWriterProps> = (
-    { ref }
+const MessageWriter:FC = (
 ) => {
+
+  const messageWriterRef = useRef<HTMLInputElement>(null);
+
   const handleSubmit =  async () => {
-    const msg = ref.current.value;
-    const res = await axios.post("http://localhost:8080/message", { message: msg })
+    const res = await axios.post("http://localhost:8080/message", { message: messageWriterRef.current })
     console.log(res.data);
   }
 
@@ -20,10 +17,10 @@ const MessageWriter:FC<MessageWriterProps> = (
       <div className="flex justify-between gap-4">
         <form>
           <input
+            ref={messageWriterRef}
             type="text"
             placeholder="Type your message here"
             className="p-2 text-black rounded-md w-52"
-            ref={ref}
           />
         </form>
         <button className="bg-blue-500 text-white p-2 rounded-xl" onClick={handleSubmit}>Send</button>
